@@ -3,36 +3,6 @@
   <div class="sub header">Fill in the form and make the donation</div>
 </h1>
 
-<button class="ui button">
-  Follow
-</button>
+<span class="{{unless isSuccess "hidden"}}">Donation Completed!</span>
 
-<button class="ui basic button">
-  <i class="icon user"></i>
-  Add Friend
-</button>
-
-<h2 class="ui header">
-  <img src="/images/donate.svg" class="ui circular image" height="42" width="42">
-  Patrick
-</h2>
-
-<h1 class="ui header">
-  Donation Form
-  <div class="sub header">Fill in the form and make the donation</div>
-</h1>
-
-<form action="">
-  <div>
-    Your name:<br>
-    <input type="text" required>
-  </div>
-  <div>
-    Amount:<br>
-    $ <input type="number" required>
-  </div>
-  <div>
-    <input type="checkbox" required>I agree to the <b>Terms and conditions</b>
-  </div>
-  <input type="submit" value="Donate">
-</form>
+{{donation-form}}

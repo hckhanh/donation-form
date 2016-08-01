@@ -1,0 +1,21 @@
+<form class="ui form segment">
+  <div class="required field">
+    <label>Your name</label>
+    {{input type="text" name="name"}}
+  </div>
+  <div class="required field">
+    <label>Amount paid</label>
+    <div class="ui right labeled input">
+      <div class="ui label">$</div>
+      {{input type="text" name="amount"}}
+      <div class="ui basic label">.00</div>
+    </div>
+  </div>
+  <div class="required inline field">
+    <div class="ui checkbox">
+      {{input class="hidden" type="checkbox" name="terms"}}
+      <label>I agree to the Terms and Conditions</label>
+    </div>
+  </div>
+  <div class="ui blue button" {{action "handleDonationSubmit"}}>Donate now</div>
+</form>
