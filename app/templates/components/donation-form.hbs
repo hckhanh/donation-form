@@ -1,13 +1,23 @@
+{{#if isSuccess}}
+  <div class="ui success message">
+    <i class="close icon" {{action "handleCloseMessage"}}></i>
+    <div class="header">
+      Thank you, {{username}}.
+    </div>
+    <p>By donating ${{amount}}, <b>someone is really grateful to you.</b></p>
+  </div>
+{{/if}}
+
 <form class="ui form segment">
   <div class="required field">
     <label>Your name</label>
-    {{input type="text" name="name"}}
+    {{input type="text" name="name" value=username}}
   </div>
   <div class="required field">
     <label>Amount paid</label>
     <div class="ui right labeled input">
       <div class="ui label">$</div>
-      {{input type="text" name="amount"}}
+      {{input type="text" name="amount" value=amount}}
       <div class="ui basic label">.00</div>
     </div>
   </div>

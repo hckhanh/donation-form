@@ -72,6 +72,14 @@ export default Ember.Component.extend({
       this
         .$('.ui.form')
         .form('reset');
+    },
+
+    handleCloseMessage() {
+      this
+        .$('.ui.success.message')
+        .transition('fade', () => {
+          this.set('isSuccess', false);
+        });
     }
   }
 });
