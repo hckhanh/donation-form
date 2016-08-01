@@ -54,35 +54,20 @@ export default Ember.Component.extend({
         on: 'blur'
       });
 
-    // this
-    //   .$('.ui.blue.button')
-    //   .api({
-    //     loadingDuration: 2000,
-    //     mockResponse: {
-    //       success: true
-    //     }
-    //   });
+    this
+      .$('.ui.blue.button')
+      .api({
+        loadingDuration: 2000,
+        mockResponse: {
+          success: true
+        },
+        beforeSend: function (settings) {
+          return false;
+        }
+      });
   },
 
   actions: {
-    handleDonationSubmit() {
-      const isFormValid = this
-        .$('.ui.form')
-        .form('validate form');
-
-      this.set('isSuccess', isFormValid);
-
-      if (!isFormValid) {
-        this
-          .$('.ui.form')
-          .form('validate form');
-      }
-
-      this
-        .$('.ui.form')
-        .form('reset');
-    },
-
     handleCloseMessage() {
       this
         .$('.ui.success.message')
