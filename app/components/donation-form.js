@@ -18,8 +18,12 @@ const donationFormRules = {
     identifier: 'amount',
     rules: [
       {
-        type: 'integer',
+        type: 'empty',
         prompt: 'Please enter your amount paid'
+      },
+      {
+        type: 'integer',
+        prompt: 'Please enter a valid amount paid'
       }
     ]
   },
@@ -35,6 +39,8 @@ const donationFormRules = {
 };
 
 export default Ember.Component.extend({
+  isSuccess: false,
+
   didInsertElement() {
     this
       .$('.ui.checkbox')
@@ -45,17 +51,27 @@ export default Ember.Component.extend({
       .form({
         fields: donationFormRules,
         inline: true,
-        on: 'submit'
+        on: 'blur'
       });
   },
 
   actions: {
     handleDonationSubmit() {
-      this
+      const isFormValid = this
         .$('.ui.form')
         .form('validate form');
 
-      // check valid before showing error to user
+      this.set('isSuccess', isFormValid);
+
+      if (!isFormValid) {
+        return this
+          .$('.ui.form')
+          .form('validate form');
+      }
+
+      this
+        .$('.ui.form')
+        .form('reset');
     }
   }
 });

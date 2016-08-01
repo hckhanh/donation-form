@@ -6,9 +6,6 @@ moduleForComponent('donation-form', 'Integration | Component | donation form', {
 });
 
 test('should submit donation with valid information', function (assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{donation-form}}`);
 
   this.$('.field input[name="name"]').text("Khanh Hoang");
@@ -18,23 +15,58 @@ test('should submit donation with valid information', function (assert) {
   this.$('div.ui.button').click();
 
   assert.equal(this.$('.field input[name="name"]').text(), '',
-    'name field must be clear');
+    'should clear name field');
 
   assert.equal(this.$('.field input[name="amount"]').text(), '',
-    'amount paid field must be clear');
+    'should clear amount paid');
 
   assert.equal(this.$('.field input[name="terms"]').prop('checked'), false,
-    'terms field must be unchecked');
+    'should uncheck terms field');
+
+  assert.equal(this.$('.ui.success.message').length, 1,
+    'should show success message');
 });
 
 test('should not submit without filling in any information', function (assert) {
+  this.render(hbs`{{donation-form}}`);
 
+  this.$('div.ui.button').click();
+
+  assert.equal(this.$('.ui.success.message').length, 0,
+    'should not show success message');
+
+  assert.equal(this.$('div.ui.red:contains("Please enter your name")').length, 1,
+    'should show message: "Please enter your name"');
+
+  assert.equal(this.$('div.ui.red:contains("Please enter your amount paid")').length, 1,
+    'should show message: "Please enter your amount paid"');
+
+  assert.equal(this.$('div.ui.red:contains("You must agree to the Terms and Conditions")').length, 1,
+    'should show message: "You must agree to the Terms and Conditions"');
 });
 
 test('should not submit with invalid amount paid', function (assert) {
+  this.render(hbs`{{donation-form}}`);
 
+  this.$('.field input[name="name"]').text("Khanh Hoang");
+  this.$('.field input[name="amount"]').text("12..2");
+  this.$('.field input[name="terms"]').prop('checked', true);
+
+  this.$('div.ui.button').click();
+
+  assert.equal(this.$('.ui.success.message').length, 0,
+    'should not show success message');
 });
 
 test('should not submit with name is lower than 5 characters', function (assert) {
+  this.render(hbs`{{donation-form}}`);
 
+  this.$('.field input[name="name"]').text("Name");
+  this.$('.field input[name="amount"]').text("120");
+  this.$('.field input[name="terms"]').prop('checked', true);
+
+  this.$('div.ui.button').click();
+
+  assert.equal(this.$('.ui.success.message').length, 0,
+    'should not show success message');
 });
