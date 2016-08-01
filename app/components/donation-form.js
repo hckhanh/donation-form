@@ -53,6 +53,15 @@ export default Ember.Component.extend({
         inline: true,
         on: 'blur'
       });
+
+    // this
+    //   .$('.ui.blue.button')
+    //   .api({
+    //     loadingDuration: 2000,
+    //     mockResponse: {
+    //       success: true
+    //     }
+    //   });
   },
 
   actions: {
@@ -64,7 +73,7 @@ export default Ember.Component.extend({
       this.set('isSuccess', isFormValid);
 
       if (!isFormValid) {
-        return this
+        this
           .$('.ui.form')
           .form('validate form');
       }
