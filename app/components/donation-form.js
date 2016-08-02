@@ -9,6 +9,10 @@ const donationFormRules = {
         prompt: 'Please enter your name'
       },
       {
+        type: 'isNaN',
+        prompt: 'Your name is not a number'
+      },
+      {
         type: 'minLength[5]',
         prompt: 'Your name must be at least 5 characters'
       }
@@ -49,7 +53,14 @@ export default Ember.Component.extend({
       .form({
         fields: donationFormRules,
         inline: true,
-        on: 'blur'
+        on: 'blur',
+        onFailure: () => {
+          this
+            .$('div.ui.success.message')
+            .transition('hide');
+
+            return false;
+        }
       })
       .api({
         serializeForm: true,
@@ -60,6 +71,9 @@ export default Ember.Component.extend({
         onSuccess: () => {
           if (!this.isDestroyed) {
             this.toggleMessage();
+
+            this.set('username', this.$('form').form('get value', 'name'));
+            this.set('amount', this.$('form').form('get value', 'amount'));
 
             this
               .$('form')
