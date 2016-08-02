@@ -3,3 +3,11 @@
     display: inline-block;
     border-bottom: 1px dotted; /* If you want dots under the hoverable text */
 }
+
+.body {
+  padding: 4em 0em;
+}
+
+.container.root {
+  width: 700px !important;
+}
