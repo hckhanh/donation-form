@@ -43,8 +43,6 @@ const donationFormRules = {
 };
 
 export default Ember.Component.extend({
-  isSuccess: false,
-
   didInsertElement() {
     this
       .$('form')
@@ -59,9 +57,10 @@ export default Ember.Component.extend({
         mockResponse: {
           success: true
         },
-        onSuccess: (response) => {
+        onSuccess: () => {
           if (!this.isDestroyed) {
-            this.set('isSuccess', response.success);
+            this.toggleMessage();
+
             this
               .$('form')
               .form('clear');
@@ -72,19 +71,20 @@ export default Ember.Component.extend({
     this
       .$('span.tooltip')
       .popup({
-        boundary: 'form',
-        content: 'Just a demo form, not real ( ͡° ͜ʖ ͡°)',
-        position: 'right center'
+        content: 'Just a demo form',
+        position: 'bottom center'
       });
+  },
+
+  toggleMessage() {
+    this
+      .$('div.ui.success.message')
+      .transition('fade down');
   },
 
   actions: {
     handleCloseMessage() {
-      this
-        .$('div.ui.success.message')
-        .transition('fade', () => {
-          this.set('isSuccess', false);
-        });
+      this.toggleMessage();
     }
   }
 });
