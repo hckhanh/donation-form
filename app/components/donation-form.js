@@ -49,6 +49,10 @@ const donationFormRules = {
 export default Ember.Component.extend({
   didInsertElement() {
     this
+      .$('.checkbox')
+      .checkbox();
+
+    this
       .$('form')
       .form({
         fields: donationFormRules,
