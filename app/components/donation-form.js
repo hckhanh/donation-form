@@ -55,11 +55,11 @@ export default Ember.Component.extend({
         inline: true,
         on: 'blur',
         onFailure: () => {
-          this
-            .$('div.ui.success.message')
-            .transition('hide');
+          if (this.isMessageVisible()) {
+            this.toggleMessage();
+          }
 
-            return false;
+          return false;
         }
       })
       .api({
@@ -70,7 +70,9 @@ export default Ember.Component.extend({
         },
         onSuccess: () => {
           if (!this.isDestroyed) {
-            this.toggleMessage();
+            if (!this.isMessageVisible()) {
+              this.toggleMessage();
+            }
 
             this.set('username', this.$('form').form('get value', 'name'));
             this.set('amount', this.$('form').form('get value', 'amount'));
@@ -88,6 +90,12 @@ export default Ember.Component.extend({
         content: 'Just a demo form',
         position: 'bottom center'
       });
+  },
+
+  isMessageVisible() {
+    return this
+      .$('div.ui.success.message')
+      .transition('is visible');
   },
 
   toggleMessage() {
