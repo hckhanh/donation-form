@@ -5,9 +5,17 @@
 }
 
 .body {
-  padding: 4em 0em;
+  padding: 8.75em 0em;
 }
 
 .container.root {
   width: 700px !important;
+}
+
+.logo {
+  width: 5em !important;
+}
+
+.ui.menu {
+  height: 5em;
 }
