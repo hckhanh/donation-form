@@ -24,6 +24,10 @@ const donationFormRules = {
       {
         type: 'integer',
         prompt: 'Please enter a valid amount paid'
+      },
+      {
+        type: 'positive',
+        prompt: 'Please enter a positive amount paid'
       }
     ]
   },
@@ -43,34 +47,41 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     this
-      .$('.ui.checkbox')
-      .checkbox();
-
-    this
-      .$('.ui.form')
+      .$('form')
       .form({
         fields: donationFormRules,
         inline: true,
         on: 'blur'
-      });
-
-    this
-      .$('.ui.blue.button')
+      })
       .api({
-        loadingDuration: 2000,
+        serializeForm: true,
+        loadingDuration: 1500,
         mockResponse: {
           success: true
         },
-        beforeSend: function (settings) {
-          return false;
+        onSuccess: (response) => {
+          if (!this.isDestroyed) {
+            this.set('isSuccess', response.success);
+            this
+              .$('form')
+              .form('clear');
+          }
         }
+      });
+
+    this
+      .$('span.tooltip')
+      .popup({
+        boundary: 'form',
+        content: 'Just a demo form, not real ( ͡° ͜ʖ ͡°)',
+        position: 'right center'
       });
   },
 
   actions: {
     handleCloseMessage() {
       this
-        .$('.ui.success.message')
+        .$('div.ui.success.message')
         .transition('fade', () => {
           this.set('isSuccess', false);
         });

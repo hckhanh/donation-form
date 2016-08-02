@@ -48,5 +48,16 @@ module.exports = function (defaults) {
     });
   });
 
+  // add jQuery Serialize Object
+
+  app.import({
+    development: 'bower_components/jquery-serialize-object/jquery.serialize-object.js',
+    production: 'bower_components/jquery-serialize-object/dist/jquery.serialize-object.min.js'
+  });
+
+  // add Semantic UI form validation rules
+
+  app.import('vendor/semantic-form-rules.js');
+
   return app.toTree();
 };
