@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 if [[ ! -z "$TRAVIS_TAG" ]]; then
   ember build --env production
   npm install -g firebase-tools
