@@ -1,7 +1,7 @@
 {
   "name": "donation-form",
   "version": "0.0.0",
-  "description": "Small description for donation-form goes here",
+  "description": "A small demo application show a donation form by using Ember.js + Semantic UI",
   "private": true,
   "directories": {
     "doc": "doc",
