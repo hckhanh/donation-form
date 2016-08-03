@@ -1,4 +1,4 @@
-<form class="ui form segment">
+<form class="ui form attached segment">
   <div class="required field">
     <label>Your name</label>
     {{input type="text" name="name"}}
@@ -19,6 +19,11 @@
   </div>
   <div class="ui blue submit button">Donate now</div>
 </form>
+
+<div class="ui bottom attached warning message">
+  <i class="code icon"></i>
+  Take a look what I made here. If you need reference, view the source code.
+</div>
 
 <div class="ui success message hidden">
   <i class="close icon" {{action "handleCloseMessage"}}></i>
