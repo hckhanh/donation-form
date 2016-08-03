@@ -1,4 +1,4 @@
-# donation-form
+# Donation-form
 
 [![Build Status](https://travis-ci.org/hckhanh/donation-form.svg?branch=master)](https://travis-ci.org/hckhanh/donation-form)
 
