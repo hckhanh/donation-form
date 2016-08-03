@@ -21,8 +21,6 @@ install:
 script:
   - npm test
 
-deploy:
-  provider: script
-  script: .deploy.sh
-  on:
-    tags: true
+after_success:
+  - chmod +x .deploy.sh
+  - ./.deploy.sh
