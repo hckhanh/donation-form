@@ -11,3 +11,24 @@
 .container {
   width: 700px !important;
 }
+
+.ui.root.menu {
+  background: none transparent;
+  border-radius: 0px;
+  box-shadow: none;
+  border: none;
+  margin: 1em -0.5em;
+}
+
+.ui.root.menu .item::before {
+  content: none;
+}
+
+.ui.root.menu a.item:hover {
+  color: #2473d8;
+  background: transparent;
+}
+
+.mini.ui.version.button {
+  font-size: 0.78571429rem !important;
+}
