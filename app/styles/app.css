@@ -5,9 +5,9 @@
 }
 
 .body {
-  padding: 8.75em 0em;
+  padding: 1.25em 0em;
 }
 
-.container.root {
+.container {
   width: 700px !important;
 }
