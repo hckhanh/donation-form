@@ -11,3 +11,12 @@ test('should Donation Form exist', assert => {
       'should have the title');
   });
 });
+
+test('should show the version of the app', assert => {
+  visit('/');
+
+  andThen(() => {
+    assert.equal(find('.black.button:contains("v1.0.0")').length, 1,
+      'version tag must be "v1.0.0"');
+  });
+});

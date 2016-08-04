@@ -16,7 +16,7 @@ test('should get data of the latest release from GitHub', function (assert) {
   Ember.run(() => {
     route.model().then((release) => {
       assert.equal(release.get('id'), 'latest', 'id must be "latest"');
-      assert.ok(release.get('tag'), 'tag is not null');
+      assert.equal(release.get('tag'), 'v1.0.0', 'tag must be "v1.0.0"');
     });
   });
 });
