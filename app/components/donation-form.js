@@ -92,7 +92,8 @@ export default Ember.Component.extend({
       .$('span.tooltip')
       .popup({
         content: 'Just a demo form',
-        position: 'bottom center'
+        position: 'bottom center',
+        variation: 'inverted'
       });
   },
 
