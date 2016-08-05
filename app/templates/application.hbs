@@ -1,5 +1,5 @@
 <div class="ui container">
-  <div class="ui large text menu">
+  <div class="ui root menu">
     <a class="item" href="/">
       <img class="logo" src="/images/gift.svg">
     </a>
@@ -9,7 +9,7 @@
     <a class="item" target="_blank" href="http://semantic-ui.com/">Semantic UI</a>
     <div class="right menu">
       <a class="item" target="_blank" href="https://github.com/hckhanh/donation-form">
-        <button class="ui black button">
+        <button class="mini ui black version button">
           <i class="github icon"></i>
           {{model.tag}}
         </button>
@@ -18,8 +18,18 @@
   </div>
 </div>
 
+<div class="ui divider"></div>
+
 <div class="ui container root">
   <div class="body">
     {{outlet}}
+  </div>
+</div>
+
+<div class="ui section divider"></div>
+
+<div class="ui center aligned container">
+  <div>
+    Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
   </div>
 </div>
