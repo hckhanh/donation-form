@@ -1,4 +1,4 @@
-<form class="ui form attached segment">
+<form class="ui form attached segment" id="donationForm">
   <div class="required field">
     <label>Your name</label>
     {{input type="text" name="name"}}
@@ -12,9 +12,9 @@
     </div>
   </div>
   <div class="required inline field">
-    <div class="ui checkbox">
+    <div class="ui checkbox" id="termsCheckbox">
       {{input class="hidden" type="checkbox" name="terms"}}
-      <label>I agree to the <span class="tooltip">Terms and Conditions</span></label>
+      <label>I agree to the <span class="tooltip" id="termsTooltip">Terms and Conditions</span></label>
     </div>
   </div>
   <div class="ui blue submit button">Donate now</div>
@@ -25,7 +25,7 @@
   Take a look what I made here. If you need reference, view the <a target="_blank" href="https://github.com/hckhanh/donation-form">source code</a>.
 </div>
 
-<div class="ui success message hidden">
+<div class="ui success message hidden" id="successMsg">
   <i class="close icon" {{action "handleCloseMessage"}}></i>
   <div class="header">
     Thank you, {{username}}.

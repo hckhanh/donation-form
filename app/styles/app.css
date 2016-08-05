@@ -12,7 +12,7 @@
   width: 700px !important;
 }
 
-.ui.root.menu {
+.ui.menu {
   background: none transparent;
   border-radius: 0px;
   box-shadow: none;
@@ -20,13 +20,17 @@
   margin: 1em -0.5em;
 }
 
-.ui.root.menu .item::before {
+.ui.menu .item::before {
   content: none;
 }
 
-.ui.root.menu a.item:hover {
-  color: #2473d8;
+.ui.menu a.item:hover {
+  color: #4078c0;
   background: transparent;
+}
+
+.ui.menu a.item svg.ui.image {
+  fill: currentColor;
 }
 
 .mini.ui.version.button {
