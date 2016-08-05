@@ -1,6 +1,6 @@
 {
   "name": "donation-form",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A small demo application show a donation form by using Ember.js + Semantic UI",
   "private": true,
   "directories": {
@@ -14,9 +14,9 @@
   },
   "repository": "",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 6.3.1"
   },
-  "author": "",
+  "author": "Khanh Hoang (https://profiles.udacity.com/u/khanhhoang)",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
