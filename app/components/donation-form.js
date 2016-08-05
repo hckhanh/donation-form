@@ -47,17 +47,27 @@ const donationFormRules = {
 };
 
 export default Ember.Component.extend({
+  successMsg: null,
+
   didInsertElement() {
     this
-      .$('.checkbox')
+      .$('#termsCheckbox')
       .checkbox();
 
     this
-      .$('form')
+      .$('#termsTooltip')
+      .popup({
+        content: 'Just a demo form',
+        position: 'bottom center',
+        variation: 'inverted'
+      });
+
+    const donationForm = this.$('#donationForm');
+
+    donationForm
       .form({
         fields: donationFormRules,
         inline: true,
-        on: 'blur',
         onFailure: () => {
           if (this.isMessageVisible()) {
             this.toggleMessage();
@@ -78,35 +88,23 @@ export default Ember.Component.extend({
               this.toggleMessage();
             }
 
-            this.set('username', this.$('form').form('get value', 'name'));
-            this.set('amount', this.$('form').form('get value', 'amount'));
+            this.set('username', donationForm.form('get value', 'name'));
+            this.set('amount', donationForm.form('get value', 'amount'));
 
-            this
-              .$('form')
-              .form('clear');
+            donationForm.form('clear');
           }
         }
       });
 
-    this
-      .$('span.tooltip')
-      .popup({
-        content: 'Just a demo form',
-        position: 'bottom center',
-        variation: 'inverted'
-      });
+    this.successMsg = this.$('#successMsg');
   },
 
   isMessageVisible() {
-    return this
-      .$('div.ui.success.message')
-      .transition('is visible');
+    return this.successMsg.transition('is visible');
   },
 
   toggleMessage() {
-    this
-      .$('div.ui.success.message')
-      .transition('fade down');
+    this.successMsg.transition('fade down');
   },
 
   actions: {
