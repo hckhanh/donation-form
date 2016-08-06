@@ -1,6 +1,8 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
+const FIREBASE_APP = 'donation-form-e0a99';
+
+module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'donation-form',
     environment: environment,
@@ -16,6 +18,13 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    firebase: {
+      apiKey: 'AIzaSyBoUibmSr6WMPpWMXgYhc1TgUBH7OWBp6A',
+      authDomain: `${FIREBASE_APP}.firebaseapp.com`,
+      databaseURL: `https://${FIREBASE_APP}.firebaseapp.com`,
+      storageBucket: `${FIREBASE_APP}.appspot.com`,
     }
   };
 

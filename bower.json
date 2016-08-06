@@ -7,6 +7,7 @@
     "semantic": "semantic-ui#^2.2.2",
     "jquery-serialize-object": "^2.5.0",
     "pretender": "~1.1.0",
-    "Faker": "~3.1.0"
+    "Faker": "~3.1.0",
+    "firebase": "^3.0.0"
   }
 }
