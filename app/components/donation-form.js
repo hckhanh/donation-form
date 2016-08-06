@@ -48,6 +48,7 @@ const donationFormRules = {
 
 export default Ember.Component.extend({
   successMsg: null,
+  store: Ember.inject.service('store'),
 
   didInsertElement() {
     this
@@ -79,8 +80,20 @@ export default Ember.Component.extend({
       .api({
         serializeForm: true,
         loadingDuration: 1500,
-        mockResponse: {
-          success: true
+        responseAsync: (settings, callback) => {
+          this
+            .get('store')
+            .createRecord('donation', {
+              username: donationForm.form('get value', 'name'),
+              amount: donationForm.form('get value', 'amount')
+            })
+            .save()
+            .then((value) => {
+              callback({ success: true });
+            })
+            .catch((reason) => {
+              callback({ success: false });
+            });
         },
         onSuccess: () => {
           if (!this.isDestroyed) {
