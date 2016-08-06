@@ -1,7 +1,5 @@
 /* jshint node: true */
 
-const FIREBASE_APP = 'donation-form-e0a99';
-
 module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'donation-form',
@@ -21,10 +19,10 @@ module.exports = function (environment) {
     },
 
     firebase: {
-      apiKey: 'AIzaSyBoUibmSr6WMPpWMXgYhc1TgUBH7OWBp6A',
-      authDomain: `${FIREBASE_APP}.firebaseapp.com`,
-      databaseURL: `https://${FIREBASE_APP}.firebaseapp.com`,
-      storageBucket: `${FIREBASE_APP}.appspot.com`,
+      apiKey: "AIzaSyBoUibmSr6WMPpWMXgYhc1TgUBH7OWBp6A",
+      authDomain: "donation-form-e0a99.firebaseapp.com",
+      databaseURL: "https://donation-form-e0a99.firebaseio.com",
+      storageBucket: "donation-form-e0a99.appspot.com",
     }
   };
 
