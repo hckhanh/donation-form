@@ -25,6 +25,10 @@ module.exports = function (environment) {
       authDomain: "donation-form-e0a99.firebaseapp.com",
       databaseURL: "https://donation-form-e0a99.firebaseio.com",
       storageBucket: "donation-form-e0a99.appspot.com",
+    },
+
+    torii: {
+      sessionServiceName: 'session'
     }
   };
 
