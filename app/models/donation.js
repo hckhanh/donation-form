@@ -4,9 +4,9 @@ export default DS.Model.extend({
   userId: DS.attr('string'),
   username: DS.attr('string'),
   amount: DS.attr('number'),
-  createdAt: DS.attr('date', {
+  createdAt: DS.attr('number', {
     defaultValue() {
-      return new Date();
+      return Date.now();
     }
   })
 });
