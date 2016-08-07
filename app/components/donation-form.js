@@ -2,6 +2,7 @@ import Ember from 'ember';
 import config from 'donation-form/config/environment';
 
 export default Ember.Component.extend({
+  donationForm: null,
   successMsg: null,
   donations: Ember.inject.service(),
 
@@ -18,52 +19,61 @@ export default Ember.Component.extend({
         variation: 'inverted'
       });
 
-    const donationForm = this.$('#donationForm');
+    this.set('donationForm', this.$('#donationForm'));
 
-    donationForm
+    this
+      .get('donationForm')
       .form({
         fields: config.APP.DONATION_FORM_RULES,
         inline: true,
-        onFailure: () => {
-          if (this.isMessageVisible()) {
-            this.toggleMessage();
-          }
-
-          return false;
-        }
+        onFailure: this.handleFormFailure.bind(this)
       })
       .api({
         serializeForm: true,
-        responseAsync: (settings, callback) => {
-          this
-            .get('donations')
-            .add({
-              username: donationForm.form('get value', 'name'),
-              amount: donationForm.form('get value', 'amount')
-            })
-            .then((donation) => {
-              this.set('username', donation.get('username'));
-              this.set('amount', donation.get('amount'));
-
-              callback({ success: true });
-            })
-            .catch((error) => {
-              console.error(error);
-              callback({ success: false });
-            });
-        },
-        onSuccess: () => {
-          if (!this.isDestroyed) {
-            if (!this.isMessageVisible()) {
-              this.toggleMessage();
-            }
-
-            donationForm.form('clear');
-          }
-        }
+        responseAsync: this.handleDonationResponse.bind(this),
+        onSuccess: this.handleDonationSuccess.bind(this)
       });
 
     this.set('successMsg', this.$('#successMsg'));
+  },
+
+  handleFormFailure() {
+    if (this.isMessageVisible()) {
+      this.toggleMessage();
+    }
+
+    return false;
+  },
+
+  handleDonationResponse(settings, callback) {
+    this
+      .get('donations')
+      .add({
+        username: this.get('donationForm').form('get value', 'name'),
+        amount: this.get('donationForm').form('get value', 'amount')
+      })
+      .then((donation) => {
+        this.set('username', donation.get('username'));
+        this.set('amount', donation.get('amount'));
+
+        callback({ success: true });
+      })
+      .catch((error) => {
+        console.error(error);
+        callback({ success: false });
+      });
+  },
+
+  handleDonationSuccess() {
+    if (!this.isDestroyed) {
+      if (!this.isMessageVisible()) {
+        this.toggleMessage();
+      }
+
+      this
+        .get('donationForm')
+        .form('clear');
+    }
   },
 
   isMessageVisible() {
