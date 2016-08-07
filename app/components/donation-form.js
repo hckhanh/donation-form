@@ -1,50 +1,5 @@
 import Ember from 'ember';
-
-const donationFormRules = {
-  name: {
-    identifier: 'name',
-    rules: [
-      {
-        type: 'empty',
-        prompt: 'Please enter your name'
-      },
-      {
-        type: 'isNaN',
-        prompt: 'Your name is not a number'
-      },
-      {
-        type: 'minLength[5]',
-        prompt: 'Your name must be at least 5 characters'
-      }
-    ]
-  },
-  amount: {
-    identifier: 'amount',
-    rules: [
-      {
-        type: 'empty',
-        prompt: 'Please enter your amount paid'
-      },
-      {
-        type: 'integer',
-        prompt: 'Please enter a valid amount paid'
-      },
-      {
-        type: 'positive',
-        prompt: 'Please enter a positive amount paid'
-      }
-    ]
-  },
-  terms: {
-    identifier: 'terms',
-    rules: [
-      {
-        type: 'checked',
-        prompt: 'You must agree to the Terms and Conditions'
-      }
-    ]
-  }
-};
+import config from 'donation-form/config/environment';
 
 export default Ember.Component.extend({
   successMsg: null,
@@ -67,7 +22,7 @@ export default Ember.Component.extend({
 
     donationForm
       .form({
-        fields: donationFormRules,
+        fields: config.APP.DONATION_FORM_RULES,
         inline: true,
         onFailure: () => {
           if (this.isMessageVisible()) {
@@ -88,10 +43,14 @@ export default Ember.Component.extend({
               amount: donationForm.form('get value', 'amount')
             })
             .save()
-            .then((value) => {
+            .then((donation) => {
+              this.set('username', donation.get('username'));
+              this.set('amount', donation.get('amount'));
+
               callback({ success: true });
             })
-            .catch((reason) => {
+            .catch((error) => {
+              console.error(error);
               callback({ success: false });
             });
         },
@@ -100,9 +59,6 @@ export default Ember.Component.extend({
             if (!this.isMessageVisible()) {
               this.toggleMessage();
             }
-
-            this.set('username', donationForm.form('get value', 'name'));
-            this.set('amount', donationForm.form('get value', 'amount'));
 
             donationForm.form('clear');
           }
