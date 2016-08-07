@@ -1,22 +1,38 @@
-// import Ember from 'ember';
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-// import wait from 'ember-test-helpers/wait';
+
+const StubDonationService = Ember.Service.extend({
+  donations: [],
+
+  add(donation) {
+    donation.createdAt = new Date();
+    this.get('donations').addObject(donation);
+
+    return Ember.RSVP.resolve('sdfsdf');
+  }
+});
 
 moduleForComponent('donation-form', 'Integration | Component | donation form', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    this.register('service:donations', StubDonationService);
+    this.inject.service('donations', { as: 'stubDonations' });
+  }
 });
 
 test('should submit donation with valid information', function (assert) {
   this.render(hbs`{{donation-form}}`);
 
   this.$('#donationForm').form('set value', 'name', 'Khanh Hoang');
-  this.$('#donationForm').form('set value', 'amount', '120');
+  this.$('#donationForm').form('set value', 'amount', 120);
   this.$('#donationForm').form('set value', 'terms', true);
 
   this.$('#donationForm').form('submit');
 
-  assert.equal(this.$('#donationForm.success').length, 1, 'should show success message');
+  const donations = this.get('stubDonations.donations');
+
+  assert.equal(donations.length, 1, 'show add donation to donations service');
 });
 
 test('should not submit without filling in any information', function (assert) {
@@ -55,7 +71,7 @@ test('should not submit with non-positive amount paid', function (assert) {
   this.render(hbs`{{donation-form}}`);
 
   this.$('#donationForm').form('set value', 'name', 'Khanh Hoang');
-  this.$('#donationForm').form('set value', 'amount', '-120');
+  this.$('#donationForm').form('set value', 'amount', -120);
   this.$('#donationForm').form('set value', 'terms', true);
 
   this.$('#donationForm').form('submit');
@@ -70,7 +86,7 @@ test('should not submit with name is lower than 5 characters', function (assert)
   this.render(hbs`{{donation-form}}`);
 
   this.$('#donationForm').form('set value', 'name', 'Khan');
-  this.$('#donationForm').form('set value', 'amount', '120');
+  this.$('#donationForm').form('set value', 'amount', 120);
   this.$('#donationForm').form('set value', 'terms', true);
 
   this.$('#donationForm').form('submit');

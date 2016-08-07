@@ -3,7 +3,7 @@ import config from 'donation-form/config/environment';
 
 export default Ember.Component.extend({
   successMsg: null,
-  store: Ember.inject.service('store'),
+  donations: Ember.inject.service(),
 
   didInsertElement() {
     this
@@ -34,15 +34,13 @@ export default Ember.Component.extend({
       })
       .api({
         serializeForm: true,
-        loadingDuration: 1500,
         responseAsync: (settings, callback) => {
           this
-            .get('store')
-            .createRecord('donation', {
+            .get('donations')
+            .add({
               username: donationForm.form('get value', 'name'),
               amount: donationForm.form('get value', 'amount')
             })
-            .save()
             .then((donation) => {
               this.set('username', donation.get('username'));
               this.set('amount', donation.get('amount'));
@@ -65,15 +63,15 @@ export default Ember.Component.extend({
         }
       });
 
-    this.successMsg = this.$('#successMsg');
+    this.set('successMsg', this.$('#successMsg'));
   },
 
   isMessageVisible() {
-    return this.successMsg.transition('is visible');
+    return this.get('successMsg').transition('is visible');
   },
 
   toggleMessage() {
-    this.successMsg.transition('fade down');
+    this.get('successMsg').transition('fade down');
   },
 
   actions: {
