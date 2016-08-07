@@ -3,4 +3,6 @@
   <div class="sub header">Fill in the form and make the donation</div>
 </h1>
 
-{{donation-form}}
+{{#if session.isAuthenticated}}
+  {{donation-form}}
+{{/if}}
