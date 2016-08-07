@@ -67,4 +67,6 @@ export default function () {
   });
 
   this.passthrough('https://www.googleapis.com/**');
+
+  this.passthrough('https://securetoken.googleapis.com/**');
 }

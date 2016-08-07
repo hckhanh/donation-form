@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   donationForm: null,
   successMsg: null,
   donations: Ember.inject.service(),
+  session: Ember.inject.service(),
 
   didInsertElement() {
     this
@@ -48,13 +49,10 @@ export default Ember.Component.extend({
   handleDonationResponse(settings, callback) {
     this
       .get('donations')
-      .add({
-        username: this.get('donationForm').form('get value', 'name'),
-        amount: this.get('donationForm').form('get value', 'amount')
-      })
+      .add(settings.data)
       .then((donation) => {
         this.set('username', donation.get('username'));
-        this.set('amount', donation.get('amount'));
+        this.set('amount',  donation.get('amount'));
 
         callback({ success: true });
       })

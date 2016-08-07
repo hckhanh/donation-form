@@ -1,6 +1,6 @@
 module.exports = {
-  name: {
-    identifier: 'name',
+  username: {
+    identifier: 'username',
     rules: [
       {
         type: 'empty',

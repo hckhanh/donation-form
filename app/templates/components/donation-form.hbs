@@ -1,7 +1,8 @@
 <form class="ui form attached segment" id="donationForm">
+  {{input type="hidden" name="userId" value=session.currentUser.uid}}
   <div class="required field">
     <label>Your name</label>
-    {{input type="text" name="name"}}
+    {{input type="text" name="username"}}
   </div>
   <div class="required field">
     <label>Amount paid</label>
