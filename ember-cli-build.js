@@ -55,6 +55,13 @@ module.exports = function (defaults) {
     production: 'bower_components/jquery-serialize-object/dist/jquery.serialize-object.min.js'
   });
 
+  // add Moment.js
+
+  app.import({
+    development: 'bower_components/moment/min/moment-with-locales.js',
+    production: 'bower_components/moment/min/moment-with-locales.min.js'
+  });
+
   // add Semantic UI form validation rules
 
   app.import('vendor/semantic-form-rules.js');
