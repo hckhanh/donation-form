@@ -8,5 +8,11 @@ export default Ember.Service.extend({
       .get('store')
       .createRecord('donation', donation)
       .save();
+  },
+
+  getAll() {
+    return this
+      .get('store')
+      .findAll('donation');
   }
 });
