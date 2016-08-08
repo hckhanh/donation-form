@@ -5,8 +5,8 @@
 
 {{#if session.isAuthenticated}}
   {{donation-form uid=session.currentUser.uid donationSubmit=(action "handleDonationSubmit")}}
+
+  <div class="ui section divider"></div>
+
+  {{donation-feed}}
 {{/if}}
-
-<div class="ui section divider"></div>
-
-{{donation-feed}}
