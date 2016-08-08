@@ -1,12 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  donations: Ember.inject.service(),
+  store: Ember.inject.service(),
   session: Ember.inject.service(),
 
   didInsertElement() {
-    this.get('donations')
-      .getAll()
+    this
+      .get('store')
+      .findAll('donation')
       .then((donations) => {
         this.set('donationFeed', donations);
       });
