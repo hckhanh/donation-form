@@ -4,7 +4,7 @@
 </h1>
 
 {{#if session.isAuthenticated}}
-  {{donation-form}}
+  {{donation-form uid=session.currentUser.uid donationSubmit=(action "handleDonationSubmit")}}
 {{/if}}
 
 <div class="ui section divider"></div>

@@ -4,8 +4,6 @@ import config from 'donation-form/config/environment';
 export default Ember.Component.extend({
   donationForm: null,
   successMsg: null,
-  donations: Ember.inject.service(),
-  session: Ember.inject.service(),
 
   didInsertElement() {
     this
@@ -48,11 +46,10 @@ export default Ember.Component.extend({
 
   handleDonationResponse(settings, callback) {
     this
-      .get('donations')
-      .add(settings.data)
+      .get('donationSubmit')(settings.data)
       .then((donation) => {
         this.set('username', donation.get('username'));
-        this.set('amount',  donation.get('amount'));
+        this.set('amount', donation.get('amount'));
 
         callback({ success: true });
       })
@@ -75,11 +72,15 @@ export default Ember.Component.extend({
   },
 
   isMessageVisible() {
-    return this.get('successMsg').transition('is visible');
+    return this
+      .get('successMsg')
+      .transition('is visible');
   },
 
   toggleMessage() {
-    this.get('successMsg').transition('fade down');
+    this
+      .get('successMsg')
+      .transition('fade down');
   },
 
   actions: {
