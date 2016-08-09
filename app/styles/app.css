@@ -40,3 +40,7 @@
 svg.ui.image {
   fill: currentColor;
 }
+
+.ui.feed .event {
+  padding: 0.5em 0em;
+}
