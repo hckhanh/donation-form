@@ -5,7 +5,7 @@ const hashids = new Hashids();
 const convertToHex = (string) => {
   let hex = '';
   for (let i = 0; i < string.length; i++) {
-    hex += string.codePointAt(i).toString(16);
+    hex += string.charCodeAt(i).toString(16);
   }
 
   return hex;

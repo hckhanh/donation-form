@@ -7,12 +7,12 @@ moduleForComponent('donation-form', 'Integration | Component | donation form', {
 });
 
 const initialStubsAndRender = (test) => {
-  test.set('uid', 'b3db8dc1-4017-46e1-adaf-17101a530d6a');
+  test.set('uid', 'UmhkV31KkGdigX4XvoQ8E87Jp1k2');
   test.on('handleDonationSubmit', () => {
     return Ember.RSVP.resolve(Ember.Object.create({
       amount: 123,
       createdAt: 1470651109806,
-      userId: 'b3db8dc1-4017-46e1-adaf-17101a530d6a',
+      userId: 'UmhkV31KkGdigX4XvoQ8E87Jp1k2',
       username: 'Khanh Hoang'
     }));
   });
