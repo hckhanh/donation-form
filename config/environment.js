@@ -1,5 +1,6 @@
 /* jshint node: true */
 const donationFormRules = require('./donation-form-rules');
+const donationImages = require('./donation-images');
 
 module.exports = function (environment) {
   var ENV = {
@@ -17,7 +18,8 @@ module.exports = function (environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-      DONATION_FORM_RULES: donationFormRules
+      DONATION_FORM_RULES: donationFormRules,
+      DONATION_IMAGES: donationImages
     },
 
     firebase: {

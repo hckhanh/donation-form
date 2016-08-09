@@ -45,6 +45,8 @@ export default Ember.Component.extend({
   },
 
   handleDonationResponse(settings, callback) {
+    settings.data.imageIndex = Math.floor(Math.random() * 10);
+
     this
       .get('donationSubmit')(settings.data)
       .then((donation) => {
