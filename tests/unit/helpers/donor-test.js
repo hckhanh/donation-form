@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { donor } from 'donation-form/helpers/owner-name';
+import { donor } from 'donation-form/helpers/donor';
 import { module, test } from 'qunit';
 
 module('Unit | Helper | donor');

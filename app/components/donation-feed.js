@@ -9,6 +9,7 @@ export default Ember.Component.extend({
       .findAll('donation')
       .then((donations) => {
         this.set('donationFeed', donations);
+        this.set('isLoaded', true);
       });
   }
 });
