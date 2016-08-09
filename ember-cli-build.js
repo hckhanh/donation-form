@@ -48,6 +48,10 @@ module.exports = function (defaults) {
     });
   });
 
+  // add Semantic UI form validation rules
+
+  app.import('vendor/semantic-form-rules.js');
+
   // add jQuery Serialize Object
 
   app.import({
@@ -62,9 +66,16 @@ module.exports = function (defaults) {
     production: 'bower_components/moment/min/moment-with-locales.min.js'
   });
 
-  // add Semantic UI form validation rules
+  // add Hashids
 
-  app.import('vendor/semantic-form-rules.js');
+  app.import({
+    development: 'bower_components/hashids/dist/hashids.js',
+    production: 'bower_components/hashids/dist/hashids.min.js'
+  });
+
+  if (app.env === 'production') {
+    app.import('bower_components/hashids/dist/hashids.min.map');
+  }
 
   return app.toTree();
 };
