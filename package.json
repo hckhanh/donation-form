@@ -1,6 +1,6 @@
 {
   "name": "donation-form",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A small demo application show a donation form by using Ember.js + Semantic UI",
   "private": true,
   "directories": {
@@ -12,7 +12,7 @@
     "start": "ember server",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": "https://github.com/hckhanh/donation-form",
   "engines": {
     "node": ">= 6.3.1"
   },
