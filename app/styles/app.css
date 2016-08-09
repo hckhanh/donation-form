@@ -1,3 +1,5 @@
+@import 'spinner.css';
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -30,9 +32,17 @@
 }
 
 .ui.menu a.item svg.ui.image {
-  fill: currentColor;
+  width: 50px;
 }
 
 .mini.ui.version.button {
   font-size: 0.78571429rem !important;
+}
+
+svg.ui.image {
+  fill: currentColor;
+}
+
+.ui.feed .event {
+  padding: 0.5em 0em;
 }

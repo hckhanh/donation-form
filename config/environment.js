@@ -1,6 +1,8 @@
 /* jshint node: true */
+const donationFormRules = require('./donation-form-rules');
+const donationImages = require('./donation-images');
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'donation-form',
     environment: environment,
@@ -16,6 +18,19 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      DONATION_FORM_RULES: donationFormRules,
+      DONATION_IMAGES: donationImages
+    },
+
+    firebase: {
+      apiKey: "AIzaSyBoUibmSr6WMPpWMXgYhc1TgUBH7OWBp6A",
+      authDomain: "donation-form-e0a99.firebaseapp.com",
+      databaseURL: "https://donation-form-e0a99.firebaseio.com",
+      storageBucket: "donation-form-e0a99.appspot.com",
+    },
+
+    torii: {
+      sessionServiceName: 'session'
     }
   };
 

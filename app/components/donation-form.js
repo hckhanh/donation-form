@@ -1,52 +1,8 @@
 import Ember from 'ember';
-
-const donationFormRules = {
-  name: {
-    identifier: 'name',
-    rules: [
-      {
-        type: 'empty',
-        prompt: 'Please enter your name'
-      },
-      {
-        type: 'isNaN',
-        prompt: 'Your name is not a number'
-      },
-      {
-        type: 'minLength[5]',
-        prompt: 'Your name must be at least 5 characters'
-      }
-    ]
-  },
-  amount: {
-    identifier: 'amount',
-    rules: [
-      {
-        type: 'empty',
-        prompt: 'Please enter your amount paid'
-      },
-      {
-        type: 'integer',
-        prompt: 'Please enter a valid amount paid'
-      },
-      {
-        type: 'positive',
-        prompt: 'Please enter a positive amount paid'
-      }
-    ]
-  },
-  terms: {
-    identifier: 'terms',
-    rules: [
-      {
-        type: 'checked',
-        prompt: 'You must agree to the Terms and Conditions'
-      }
-    ]
-  }
-};
+import config from 'donation-form/config/environment';
 
 export default Ember.Component.extend({
+  donationForm: null,
   successMsg: null,
 
   didInsertElement() {
@@ -62,49 +18,71 @@ export default Ember.Component.extend({
         variation: 'inverted'
       });
 
-    const donationForm = this.$('#donationForm');
+    this.set('donationForm', this.$('#donationForm'));
 
-    donationForm
+    this
+      .get('donationForm')
       .form({
-        fields: donationFormRules,
+        fields: config.APP.DONATION_FORM_RULES,
         inline: true,
-        onFailure: () => {
-          if (this.isMessageVisible()) {
-            this.toggleMessage();
-          }
-
-          return false;
-        }
+        onFailure: this.handleFormFailure.bind(this)
       })
       .api({
         serializeForm: true,
-        loadingDuration: 1500,
-        mockResponse: {
-          success: true
-        },
-        onSuccess: () => {
-          if (!this.isDestroyed) {
-            if (!this.isMessageVisible()) {
-              this.toggleMessage();
-            }
-
-            this.set('username', donationForm.form('get value', 'name'));
-            this.set('amount', donationForm.form('get value', 'amount'));
-
-            donationForm.form('clear');
-          }
-        }
+        responseAsync: this.handleDonationResponse.bind(this),
+        onSuccess: this.handleDonationSuccess.bind(this)
       });
 
-    this.successMsg = this.$('#successMsg');
+    this.set('successMsg', this.$('#successMsg'));
+  },
+
+  handleFormFailure() {
+    if (this.isMessageVisible()) {
+      this.toggleMessage();
+    }
+
+    return false;
+  },
+
+  handleDonationResponse(settings, callback) {
+    settings.data.imageIndex = Math.floor(Math.random() * 10);
+
+    this
+      .get('donationSubmit')(settings.data)
+      .then((donation) => {
+        this.set('username', donation.get('username'));
+        this.set('amount', donation.get('amount'));
+
+        callback({ success: true });
+      })
+      .catch((error) => {
+        console.error(error);
+        callback({ success: false });
+      });
+  },
+
+  handleDonationSuccess() {
+    if (!this.isDestroyed) {
+      if (!this.isMessageVisible()) {
+        this.toggleMessage();
+      }
+
+      this
+        .get('donationForm')
+        .form('reset');
+    }
   },
 
   isMessageVisible() {
-    return this.successMsg.transition('is visible');
+    return this
+      .get('successMsg')
+      .transition('is visible');
   },
 
   toggleMessage() {
-    this.successMsg.transition('fade down');
+    this
+      .get('successMsg')
+      .transition('fade down');
   },
 
   actions: {

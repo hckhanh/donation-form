@@ -1,82 +1,88 @@
-// import Ember from 'ember';
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-// import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('donation-form', 'Integration | Component | donation form', {
   integration: true
 });
 
-test('should submit donation with valid information', function (assert) {
-  this.render(hbs`{{donation-form}}`);
+const initialStubsAndRender = (test) => {
+  test.set('uid', 'UmhkV31KkGdigX4XvoQ8E87Jp1k2');
+  test.on('handleDonationSubmit', () => {
+    return Ember.RSVP.resolve(Ember.Object.create({
+      amount: 123,
+      createdAt: 1470651109806,
+      userId: 'UmhkV31KkGdigX4XvoQ8E87Jp1k2',
+      username: 'Khanh Hoang'
+    }));
+  });
 
-  this.$('#donationForm').form('set value', 'name', 'Khanh Hoang');
-  this.$('#donationForm').form('set value', 'amount', '120');
+  test.render(hbs`{{donation-form uid=uid donationSubmit=(action "handleDonationSubmit")}}`);
+};
+
+test('should submit donation with valid information', function (assert) {
+  initialStubsAndRender(this);
+
+  this.$('#donationForm').form('set value', 'username', 'Khanh Hoang');
+  this.$('#donationForm').form('set value', 'amount', 120);
   this.$('#donationForm').form('set value', 'terms', true);
 
   this.$('#donationForm').form('submit');
 
-  assert.equal(this.$('#donationForm.success').length, 1, 'should show success message');
+  assert.ok(this.$('#donationForm').form('is valid'), 'form validation is success');
+
+  assert.ok(this.$('#donationForm').api('was successful'), 'api request is success');
 });
 
-test('should not submit without filling in any information', function (assert) {
-  this.render(hbs`{{donation-form}}`);
+test('should not submit without filling any information', function (assert) {
+  initialStubsAndRender(this);
 
   this.$('#donationForm').form('submit');
 
-  assert.equal(this.$('#donationForm.success').length, 0, 'should not show success message');
-
-  assert.equal(this.$('div.ui.red:contains("Please enter your name")').length, 1,
-    'should show message: "Please enter your name"');
-
-  assert.equal(this.$('div.ui.red:contains("Please enter your amount paid")').length, 1,
-    'should show message: "Please enter your amount paid"');
-
-  assert.equal(this.$('div.ui.red:contains("You must agree to the Terms and Conditions")').length, 1,
-    'should show message: "You must agree to the Terms and Conditions"');
+  assert.notOk(this.$('#donationForm').form('is valid'), 'form validation is failed');
 });
 
 test('should not submit with invalid amount paid', function (assert) {
-  this.render(hbs`{{donation-form}}`);
+  initialStubsAndRender(this);
 
-  this.$('#donationForm').form('set value', 'name', 'Khanh Hoang');
+  this.$('#donationForm').form('set value', 'username', 'Khanh Hoang');
   this.$('#donationForm').form('set value', 'amount', '12..0');
   this.$('#donationForm').form('set value', 'terms', true);
 
   this.$('#donationForm').form('submit');
 
-  assert.equal(this.$('#donationForm.success').length, 0, 'should not show success message');
-
-  assert.equal(this.$('div.ui.red:contains("Please enter a valid amount paid")').length, 1,
-    'should show message: "Please enter a valid amount paid"');
+  assert.notOk(this.$('#donationForm').form('is valid'), 'form validation is failed');
 });
 
 test('should not submit with non-positive amount paid', function (assert) {
-  this.render(hbs`{{donation-form}}`);
+  initialStubsAndRender(this);
 
-  this.$('#donationForm').form('set value', 'name', 'Khanh Hoang');
-  this.$('#donationForm').form('set value', 'amount', '-120');
+  this.$('#donationForm').form('set value', 'username', 'Khanh Hoang');
+  this.$('#donationForm').form('set value', 'amount', -120);
   this.$('#donationForm').form('set value', 'terms', true);
 
   this.$('#donationForm').form('submit');
 
-  assert.equal(this.$('#donationForm.success').length, 0, 'should not show success message');
-
-  assert.equal(this.$('div.ui.red:contains("Please enter a positive amount paid")').length, 1,
-    'should show message: "Please enter a positive amount paid"');
+  assert.notOk(this.$('#donationForm').form('is valid'), 'form validation is failed');
 });
 
 test('should not submit with name is lower than 5 characters', function (assert) {
-  this.render(hbs`{{donation-form}}`);
+  initialStubsAndRender(this);
 
-  this.$('#donationForm').form('set value', 'name', 'Khan');
-  this.$('#donationForm').form('set value', 'amount', '120');
+  this.$('#donationForm').form('set value', 'username', 'Khan');
+  this.$('#donationForm').form('set value', 'amount', 120);
   this.$('#donationForm').form('set value', 'terms', true);
 
   this.$('#donationForm').form('submit');
 
-  assert.equal(this.$('#donationForm.success').length, 0, 'should not show success message');
+  assert.notOk(this.$('#donationForm').form('is valid'), 'form validation is failed');
+});
 
-  assert.equal(this.$('div.ui.red:contains("Your name must be at least 5 characters")').length, 1,
-    'should show message: "Your name must be at least 5 characters"');
+test('should have the hidden userId field', function (assert) {
+  initialStubsAndRender(this);
+
+  const uid = this.get('uid');
+
+  assert.equal(this.$('#donationForm input:hidden[name="userId"]').val(), uid,
+   'should be the user id');
 });

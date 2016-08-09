@@ -65,4 +65,8 @@ export default function () {
       "body": "* Add basic features to the site\r\n* Add menu bar and referenced links"
     };
   });
+
+  this.passthrough('https://www.googleapis.com/**');
+
+  this.passthrough('https://securetoken.googleapis.com/**');
 }
