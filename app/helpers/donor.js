@@ -1,17 +1,21 @@
 import Ember from 'ember';
 
-const hashids =new Hashids();
+const hashids = new Hashids();
 
-const convertToHex = (str) =>{
+const convertToHex = (string) => {
+  let hex = '';
+  for (let i = 0; i < string.length; i++)
+    hex += string.codePointAt(i).toString(16);
 
+  return hex;
 };
 
-export function donor([donation]) {
-  const bufferId = new Buffer(donation.get('userId'));
-  const hashedId = hashids.encodeHex(bufferId.toString('hex'));
+export function donor([donation, dataAttrs]) {
+  const hashedId = hashids
+    .encodeHex(convertToHex(donation.get('userId')));
 
   return Ember.String.htmlSafe(`
-    <a class="user" data-offset="top left" data-content="id: ${hashedId}">
+    <a class="user" ${dataAttrs} data-tooltip="id: ${hashedId}">
       ${donation.get('username')}
     </a>
   `);

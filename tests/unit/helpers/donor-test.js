@@ -12,7 +12,10 @@ test('should print the username of the donation owner', (assert) => {
     username: 'Khanh Hoang'
   });
 
-  const result = donor([stubDonation]);
+  const result = donor([
+    stubDonation,
+    'data-position="top left" data-inverted=""'
+  ]);
 
   assert.ok(result);
 });
